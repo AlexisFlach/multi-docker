@@ -1,0 +1,23 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t alexisflach/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true alexisflach/react-test npm test
+
+after_success:
+  - docker build -t alexisflach/multi-client ./client
+  - docker build -t alexisflach/multi-nginx ./nginx
+  - docker build -t alexisflach/multi-server ./server
+  - docker build -t alexisflach/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push alexisflach/multi-client
+  - docker push alexisflach/multi-nginx
+  - docker push alexisflach/multi-server
+  - docker push alexisflach/multi-worker
