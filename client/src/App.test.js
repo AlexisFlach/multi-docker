@@ -1,3 +1,0 @@
-test('renders welcome msg', () => {
-  
-});
