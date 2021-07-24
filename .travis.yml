@@ -1,5 +1,6 @@
-language: generic
 sudo: required
+language: generic
+
 services:
   - docker
 
@@ -14,10 +15,10 @@ after_success:
   - docker build -t flachens/multi-nginx ./nginx
   - docker build -t flachens/multi-server ./server
   - docker build -t flachens/multi-worker ./worker
-
+  # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-
+  # Take those images and push them to docker hub
   - docker push flachens/multi-client
   - docker push flachens/multi-nginx
   - docker push flachens/multi-server
-  - docker push flachens/multi-worker  
+  - docker push flachens/multi-worker
