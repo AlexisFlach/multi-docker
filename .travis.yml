@@ -20,4 +20,4 @@ after_success:
   - docker push alexisflach/multi-client
   - docker push alexisflach/multi-nginx
   - docker push alexisflach/multi-server
-  - docker push alexisflach/multi-worker
+  - docker push alexisflach/multi-worker  
